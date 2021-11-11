@@ -1,0 +1,19 @@
+@font-face {
+    font-family: 'Gilroy';
+    src: url(./assets/fonts/gilroy-black.woff) format(woff);
+    src: url(./assets/fonts/gilroy-black.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-bold.woff) format(woff);
+    src: url(./assets/fonts/gilroy-bold.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-heavy.woff) format(woff);
+    src: url(./assets/fonts/gilroy-heavy.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-medium.woff) format(woff);
+    src: url(./assets/fonts/gilroy-medium.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-regular.woff) format(woff);
+    src: url(./assets/fonts/gilroy-regular.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-semibold.woff) format(woff);
+    src: url(./assets/fonts/gilroy-semibold.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-thin.woff) format(woff);
+    src: url(./assets/fonts/gilroy-thin.woff2) format(woff2);
+    src: url(./assets/fonts/gilroy-ultralight.woff) format(woff);
+    src: url(./assets/fonts/gilroy-ultralight.woff2) format(woff2);
+}
