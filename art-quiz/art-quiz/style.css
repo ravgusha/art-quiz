@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat';
+    color: #fff;
+
+}
+
+button {
+    cursor: pointer;
+}
+
+.body__container {
+    max-width: 360px;
+    margin: 0 auto;
+    height: 100vh;
+    padding: 25px 25px 0;
+    background-image: url(./assets/images/start.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.header {
+    height: 5%;
+    display: flex;
+    justify-content: right;
+}
+
+.header__settings {
+    background-image: url(./assets/images/settings.png);
+    height: 35px;
+    width: 35px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    position: relative;
+}
+
+.start__screen {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: 87vh;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.logo {
+    padding-bottom: 32px;
+}
+
+.quiz {
+    margin-bottom: 19%;
+    text-align: center;
+}
+
+.quiz__artist,
+.quiz__pictures {
+    font-family: 'Montserrat';
+    outline: none;
+    border: none;
+    background: transparent;
+    font-size: 24px;
+    color: #fff;
+    border: 1px solid #FFFFFF;
+    border-radius: 56px;
+    padding: 10px 64px;
+    white-space: nowrap;
+}
+
+.quiz__artist {
+    margin-bottom: 26px;
+    padding: 10px 81px;
+}
+
+.footer {
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+}
