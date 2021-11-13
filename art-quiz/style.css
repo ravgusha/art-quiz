@@ -14,16 +14,26 @@ body {
 
 button {
     cursor: pointer;
+    outline: none;
+    border: none;
 }
 
 .body__container {
     max-width: 360px;
     margin: 0 auto;
     height: 100vh;
+
+}
+
+.start__screen {
     padding: 25px 25px 0;
     background-image: url(./assets/images/start.jpg);
     background-size: cover;
     background-position: center;
+}
+
+.hide {
+    display: none;
 }
 
 .header {
@@ -36,13 +46,11 @@ button {
     background-image: url(./assets/images/settings.png);
     height: 35px;
     width: 35px;
-    outline: none;
-    border: none;
     background-color: transparent;
     position: relative;
 }
 
-.start__screen {
+.start__main {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -63,8 +71,6 @@ button {
 .quiz__artist,
 .quiz__pictures {
     font-family: 'Montserrat';
-    outline: none;
-    border: none;
     background: transparent;
     font-size: 24px;
     color: #fff;
@@ -83,4 +89,307 @@ button {
     font-size: 14px;
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
+}
+
+.settings__screen {
+    /* display: none; */
+    background-color: #000;
+    padding: 25px 25px 0;
+    font-size: 24px;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: -600px;
+    transition: all 1s;
+    width: 100%;
+    height: 100%;
+}
+
+.settings__back {
+    background-image: url(./assets/images/arrow.png);
+    color: #fff;
+    width: 10px;
+    height: 20px;
+    background-color: transparent;
+}
+
+.settings__header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 50px;
+    font-size: 24px;
+}
+
+.settings__subtitle {
+    font-weight: 700;
+    padding-bottom: 12px;
+}
+
+.volume__block,
+.time-answer__block,
+.time-game__block {
+    padding-bottom: 48px;
+}
+
+#myinput {
+    background: linear-gradient(to right, #FFBCA2 0%, #FFBCA2 50%, #fff 50%, #fff 100%);
+    border: solid 1px #FFBCA2;
+    border-radius: 8px;
+    height: 4px;
+    width: 100%;
+    outline: none;
+    transition: background 450ms ease-in;
+    -webkit-appearance: none;
+    margin-bottom: 25px;
+}
+
+input[type='range']::-webkit-slider-thumb {
+    width: 15px;
+    -webkit-appearance: none;
+    height: 15px;
+    cursor: ew-resize;
+    background: #fff;
+    border-radius: 50%;
+    /* box-shadow: -80px 0 0 80px #43e5f7; */
+}
+
+.volume__off {
+    background-image: url(./assets/images/volume-off.png);
+    width: 23px;
+    height: 16px;
+    background-color: transparent;
+}
+
+.volume__icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.volume__on {
+    background-image: url(./assets/images/volume-on.png);
+    width: 16px;
+    height: 16px;
+    background-color: transparent;
+}
+
+.time-switcher__container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-switcher {
+    padding-right: 15px;
+}
+
+.time-game__title {
+    padding-bottom: 21px;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 14px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    display: none;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: -6px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    height: 24px;
+    width: 48px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 1px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #FFBCA2;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #FFBCA2;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(30px);
+    -ms-transform: translateX(30px);
+    transform: translateX(30px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.time-answer__counter {
+    display: flex;
+    justify-content: center;
+}
+
+.time-sign {
+
+    width: 33px;
+    height: 33px;
+    border: none;
+    outline: none;
+    border-radius: 50%;
+    background-color: transparent;
+}
+
+.time__remove {
+    background-image: url(./assets/images/minus.png);
+}
+
+.time__add {
+    background-image: url(./assets/images/plus.png);
+}
+
+.time__count {
+    padding: 0 20px;
+}
+
+.time-answer__title {
+    padding-bottom: 25px;
+}
+
+.settings__default,
+.settings__save {
+    font-size: 24px;
+    padding: 10px 33px;
+    border-radius: 56px;
+
+}
+
+.settings__default {
+    border: 1px solid #FFFFFF;
+
+    margin-right: 16px;
+    background-color: transparent;
+    color: #fff;
+}
+
+.settings__save {
+    background-color: #FFBCA2;
+    padding: 10px 44px;
+}
+
+.settings__buttons {
+    padding-bottom: 30px;
+}
+
+/* ARTISTS SCREEN */
+.artists__screen,
+.pictures__screen {
+    background-color: #000;
+}
+
+.artists__main,
+.pictures__main {
+    padding: 22px 15px 0 15px;
+}
+
+.artists__settings,
+.pictures__settings {
+    background-image: url(./assets/images/settings.png);
+    height: 35px;
+    width: 35px;
+    background-color: transparent;
+    /* position: relative; */
+}
+
+.artists__header,
+.pictures__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.artists__title,
+.pictures__title {
+    font-size: 24px;
+    padding: 25px 0 51px 0;
+}
+
+.artist__categories,
+.pictures__categories {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.artist__category,
+.pictures__category {
+    width: calc(100% / 2.1);
+    height: 190px;
+    margin-right: 0.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.artist__category:nth-child(2n),
+.pictures__category:nth-child(2n) {
+    margin-right: 0;
+}
+
+.category__image {
+    width: 155px;
+    height: 164px;
+    border-radius: 20px;
+}
+
+.category__score {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.navbar {
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #fff;
+    border-radius: 15px 15px 0 0;
+    background-color: #000;
+    padding: 14px 45px;
+    transition: all 1s;
+}
+
+.navbar__button {
+    text-decoration: none;
+    color: #fff;
+}
+
+.navbar__container {
+    text-align: center;
+
 }

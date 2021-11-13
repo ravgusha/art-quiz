@@ -11,28 +11,281 @@
 
 <body>
     <div class="body__container">
-        <header class="header">
-            <button class="header__settings"></button>
-        </header>
-        <div class="start__screen">
-            <img class="logo" src="./assets/images/logo.svg" alt="logo">
-            <div class="quiz">
-                <button class="quiz__artist">Artist quiz</button>
-                <button class="quiz__pictures">Pictures quiz</button>
+        <div class="start__screen" id="startScreen">
+            <header class="header">
+                <button class="header__settings" id="headerSettings"></button>
+            </header>
+            <div class="start__main">
+                <img class="logo" src="./assets/images/logo.svg" alt="logo">
+                <div class="quiz">
+                    <button class="quiz__artist" id="artistsQuiz">Artists quiz</button>
+                    <button class="quiz__pictures" id="picturesQuiz">Pictures quiz</button>
+                </div>
+                </button>
             </div>
-            </button>
+            <footer class="footer">
+                <img class="footer__logo" src="./assets/images/logo-rs.png" alt=" school logo">
+                <p class="developer">created by ravgusha</p>
+                <time class="time">2021</time>
+            </footer>
         </div>
-        <div class="settings">
+        <div class="settings__screen" id="settingsScreen">
+            <div class="settings__header">
+                <button class="settings__back" id="settingsBack"></button>
+                <p class="settings__title">Settings</p>
+            </div>
+            <div class="volume__block">
+                <p class="volume__title  settings__subtitle">Volume</p>
+                <input id="myinput" class="volume__input" type="range" min="0" max="100" value="50" step="1">
+                <div class="volume__icons">
+                    <button class="volume__off"></button>
+                    <button class="volume__on"></button>
+                </div>
+            </div>
+            <div class="time-game__block">
+                <p class="time-game__title settings__subtitle">Time game</p>
+                <div class="time-switcher__container">
+                    <p class="time-switcher">On</p>
+                    <label class="switch">
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+
+            </div>
+            <div class="time-answer__block">
+                <p class="time-answer__title settings__subtitle">Time to answer</p>
+                <div class="time-answer__counter">
+                    <button class="time__remove time-sign"></button>
+                    <p class="time__count">20</p>
+                    <button class="time__add time-sign"></button>
+
+                </div>
+            </div>
+            <div class="settings__buttons">
+                <button class="settings__default">Default</button>
+                <button class="settings__save">Save</button>
+            </div>
+            <footer class="footer">
+                <img class="footer__logo" src="./assets/images/logo-rs.png" alt=" school logo">
+                <p class="developer">created by ravgusha</p>
+                <time class="time">2021</time>
+            </footer>
+        </div>
+        <div class="artists__screen hide" id="artistsScreen">
+            <div class="artists__main">
+                <div class="artists__header">
+                    <img class="artists__logo" src="./assets/images/logo.svg" alt="logo">
+                    <button class="artists__settings" id="artistSettings"></button>
+                </div>
+                <div class="artists__title">Categories</div>
+                <div class="artist__categories">
+                    <div class="artist__category">
+                        <p class="category__title">Portrait</p>
+                        <p class="category__score">5/10</p>
+                        <img src="./assets/images/pictures/0.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Landscape</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/1.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Still Life</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/2.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Graphic</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/3.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Antique</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/4.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Avant-garde</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/5.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Renaissance</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/6.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Surrealism</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/7.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Minimalism</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/8.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Kitsch</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/9.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Avangard</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/10.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="artist__category">
+                        <p class="category__title">Industrial</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/11.jpg" alt="" class="category__image">
+
+                    </div>
+                </div>
+            </div>
+            <div class="navbar" id="navbar">
+                <a class="navbar__button" href="" id="navbarHome">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/home.png" alt="home">
+                        <div class="navbar__text">Home</div>
+                    </div>
+                </a>
+                <a class="navbar__button" href="" id="navbarCtgrs">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/categories.png" alt="categories">
+                        <div class="navbar__text">Categories</div>
+                    </div>
+                </a>
+                <a class="navbar__button" href="" id="navbarScore">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/score.png" alt="score">
+                        <div class="navbar__text">Score</div>
+                    </div>
+                </a>
+            </div>
 
         </div>
-        <footer class="footer">
-            <img class="footer__logo" src="./assets/images/logo-rs.png" alt=" school logo">
-            <p class="developer">created by ravgusha</p>
-            <time class="time">2021</time>
-        </footer>
+        <div class="pictures__screen hide" id="picturesScreen">
+            <div class="pictures__main">
+                <div class="pictures__header">
+                    <img class="pictures__logo" src="./assets/images/logo.svg" alt="logo">
+                    <button class="pictures__settings" id="picturesSettings"></button>
+                </div>
+                <div class="pictures__title">Categories</div>
+                <div class="pictures__categories">
+                    <div class="pictures__category">
+                        <p class="category__title">Portrait</p>
+                        <p class="category__score">5/10</p>
+                        <img src="./assets/images/pictures/0.jpg" alt="" class="category__image">
 
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Landscape</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/1.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Still Life</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/2.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Graphic</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/3.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Antique</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/4.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Avant-garde</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/5.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Renaissance</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/6.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Surrealism</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/7.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Minimalism</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/8.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Kitsch</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/9.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Avangard</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/10.jpg" alt="" class="category__image">
+
+                    </div>
+                    <div class="pictures__category">
+                        <p class="category__title">Industrial</p>
+                        <p class="category__score"></p>
+                        <img src="./assets/images/pictures/11.jpg" alt="" class="category__image">
+
+                    </div>
+                </div>
+            </div>
+            <div class="navbar" id="navbar-pic">
+                <a class="navbar__button" href="" id="navbarHome">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/home.png" alt="home">
+                        <div class="navbar__text">Home</div>
+                    </div>
+                </a>
+                <a class="navbar__button" href="" id="navbarCtgrs">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/categories.png" alt="categories">
+                        <div class="navbar__text">Categories</div>
+                    </div>
+                </a>
+                <a class="navbar__button" href="" id="navbarScore">
+                    <div class="navbar__container">
+                        <img class="navbar__image" src="./assets/images/score.png" alt="score">
+                        <div class="navbar__text">Score</div>
+                    </div>
+                </a>
+            </div>
+        </div>
     </div>
 
+
+
+
+    </div>
+    <script type="module" src="./js/script.js"></script>
 </body>
 
 </html>
