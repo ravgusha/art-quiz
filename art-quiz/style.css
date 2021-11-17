@@ -501,7 +501,8 @@ input:checked+.slider:before {
 
 }
 
-.answer__popup {
+.answer__popup,
+.score__popup {
     /* display: none; */
 
 
@@ -519,7 +520,8 @@ input:checked+.slider:before {
 
 }
 
-.answer__popup_container {
+.answer__popup_container,
+.score__popup_container {
     padding: 25px;
     background-color: #fff;
 }

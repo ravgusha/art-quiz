@@ -2,6 +2,7 @@ let startScr = document.getElementById('startScreen');
 let settingsScr = document.getElementById('settingsScreen');
 let artistsScr = document.getElementById('artistsScreen');
 let picturesScr = document.getElementById('picturesScreen');
+let questScr = document.getElementById('questionScreen');
 
 let artistQuizBtn = document.getElementById('artistsQuiz');
 let picturesQuizBtn = document.getElementById('picturesQuiz');
@@ -145,7 +146,7 @@ async function getImages() {
 // console.log(portArt.idd)
 getImages();
 
-let questScr = document.getElementById('questionScreen');
+
 let questTemp = document.getElementById('questionMain');
 
 
@@ -243,6 +244,7 @@ let rightAnswerYear;
 let allAnswers = document.getElementById('allAnswers');
 let answerPopupCont = document.getElementById('answPopupCont')
 let answerPopup = document.getElementById('answPopup')
+let scrPopupCont = document.getElementById('scorePopupCont');
 
 
 
@@ -277,13 +279,11 @@ document.querySelector('body').addEventListener('click', function (event) {
             questionNumber === 89 && currentCategory === 'kitArt' ||
             questionNumber === 99 && currentCategory === 'minArt' ||
             questionNumber === 109 && currentCategory === 'avantArt' ||
-            questionNumber === 119 && currentCategory === 'indArt' ) {
-            console.log('stop')
-            answerPopupCont.innerHTML =
-                `<img class="end__image" id="ansImg" src="./assets/images/cup.png" alt="">
-        <p class="end__text">Congratulations!</p>
-        <p class="end__score">8/10</p>
-        <button class="end__home" id="homeBtn">Home</button>`
+            questionNumber === 119 && currentCategory === 'indArt') {
+            console.log('stop');
+            answerPopup.style.left = '-600px';
+            displayScore();
+
         } else {
             questionNumber++;
             console.log(questionNumber);
@@ -292,7 +292,19 @@ document.querySelector('body').addEventListener('click', function (event) {
             answers = [];
         }
     }
-    // startQuiz(categoryName);
+
+    function displayScore() {
+        scrPopup.style.left = '0';
+        document.getElementById('endScore').innerHTML = `8-10`
+    }
+
+
+    document.getElementById('scoreHomeBtn').addEventListener('click', () => {
+        questScr.classList.toggle('hide');
+        startScr.classList.toggle('hide');
+        scrPopup.style.left = '-600px';
+    })
+
 });
 
 
