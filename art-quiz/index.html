@@ -79,74 +79,74 @@
                     <button class="artists__settings" id="artistSettings"></button>
                 </div>
                 <div class="artists__title">Categories</div>
-                <div class="artist__categories">
-                    <div class="artist__category">
+                <div class="artist__categories" id="artCtgrs">
+                    <div class="artist__category" data-cat="portArt">
                         <p class="category__title">Portrait</p>
                         <p class="category__score">5/10</p>
                         <img src="./assets/images/pictures/0.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="landArt">
                         <p class="category__title">Landscape</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/1.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="stillArt">
                         <p class="category__title">Still Life</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/2.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="graphArt">
                         <p class="category__title">Graphic</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/3.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="antArt">
                         <p class="category__title">Antique</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/4.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
-                        <p class="category__title">Avant-garde</p>
+                    <div class="artist__category" data-cat="intArt">
+                        <p class="category__title">Interior</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/5.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="renArt">
                         <p class="category__title">Renaissance</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/6.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="surArt">
                         <p class="category__title">Surrealism</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/7.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="minArt">
                         <p class="category__title">Minimalism</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/8.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="kitArt">
                         <p class="category__title">Kitsch</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/9.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="avanArt">
                         <p class="category__title">Avangard</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/10.jpg" alt="" class="category__image">
 
                     </div>
-                    <div class="artist__category">
+                    <div class="artist__category" data-cat="indArt">
                         <p class="category__title">Industrial</p>
                         <p class="category__score"></p>
                         <img src="./assets/images/pictures/11.jpg" alt="" class="category__image">
@@ -155,19 +155,19 @@
                 </div>
             </div>
             <div class="navbar" id="navbar">
-                <a class="navbar__button" href="" id="navbarHome">
+                <a class="navbar__button" id="navbarHome">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/home.png" alt="home">
                         <div class="navbar__text">Home</div>
                     </div>
                 </a>
-                <a class="navbar__button" href="" id="navbarCtgrs">
+                <a class="navbar__button" id="navbarCtgrs">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/categories.png" alt="categories">
                         <div class="navbar__text">Categories</div>
                     </div>
                 </a>
-                <a class="navbar__button" href="" id="navbarScore">
+                <a class="navbar__button" id="navbarScore">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/score.png" alt="score">
                         <div class="navbar__text">Score</div>
@@ -176,6 +176,24 @@
             </div>
 
         </div>
+        <div class="question__screen hide" id="questionScreen">
+            <div class="question__container">
+                <div class="quiestion__header">
+                    <span class="close"></span>
+                    <div id="progressContainer">
+                        <div id="progress"></div>
+                    </div>
+                    <p class="progress__time">3:41</з>
+                </div>
+                <div class="question__main" id="questionMain"></div>
+                <footer class="footer">
+                    <img class="footer__logo" src="./assets/images/logo-rs.png" alt="school logo">
+                    <p class="developer">created by ravgusha</p>
+                    <time class="time">2021</time>
+                </footer>
+            </div>
+        </div>
+
         <div class="pictures__screen hide" id="picturesScreen">
             <div class="pictures__main">
                 <div class="pictures__header">
@@ -259,19 +277,19 @@
                 </div>
             </div>
             <div class="navbar" id="navbar-pic">
-                <a class="navbar__button" href="" id="navbarHome">
+                <a class="navbar__button" id="navbarHome1">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/home.png" alt="home">
                         <div class="navbar__text">Home</div>
                     </div>
                 </a>
-                <a class="navbar__button" href="" id="navbarCtgrs">
+                <a class="navbar__button" id="navbarCtgrs">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/categories.png" alt="categories">
                         <div class="navbar__text">Categories</div>
                     </div>
                 </a>
-                <a class="navbar__button" href="" id="navbarScore">
+                <a class="navbar__button" id="navbarScore">
                     <div class="navbar__container">
                         <img class="navbar__image" src="./assets/images/score.png" alt="score">
                         <div class="navbar__text">Score</div>
@@ -280,12 +298,7 @@
             </div>
         </div>
     </div>
-
-
-
-
-    </div>
-    <script type="module" src="./js/script.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
