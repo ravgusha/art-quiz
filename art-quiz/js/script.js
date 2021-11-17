@@ -79,6 +79,7 @@ let landArt = [],
     indArt = [];
 
 let allQuestions;
+let isRight;
 
 async function getImages() {
     let images = './js/images.json';
@@ -92,7 +93,7 @@ async function getImages() {
 
     artistQuestions.push(allQuestions.pictures.slice(0, 120));
     picturesQuestions.push(allQuestions.pictures.slice(120, 240)); // Разбираем массив
-    console.log(artistQuestions, picturesQuestions)
+    // console.log(artistQuestions, picturesQuestions)
 
     // portArt.push(allQuestions.pictures.slice(0, 10));
     // landArt.push(allQuestions.pictures.slice(10, 20));
@@ -140,7 +141,6 @@ async function getImages() {
     // chunkArray(allQuestions, 10)
 
 }
-let idd = 0;
 // console.log(portArt)
 // console.log(portArt.idd)
 getImages();
@@ -148,13 +148,15 @@ getImages();
 let questScr = document.getElementById('questionScreen');
 let questTemp = document.getElementById('questionMain');
 
+
+let questionNumber;
+let answers = [];
+
 async function startQuiz(category) {
     artistsScr.classList.toggle('hide');
     questScr.classList.toggle('hide');
-    console.log(category)
-    console.log(allQuestions);
 
-    let questionNumber;
+    console.log(category)
     if (category === 'portArt') {
         questionNumber = 0;
     } else if (category === 'landArt') {
@@ -180,59 +182,132 @@ async function startQuiz(category) {
     } else if (category === 'indArt') {
         questionNumber = 110;
     }
-    let answers = [];
 
-    await getAnswers(questionNumber);
-    function getAnswers(questionNumber) {
 
-        // Получаем правильный ответ
-        let rightAnswer = allQuestions.pictures[questionNumber].author;
-        answers.push(rightAnswer);
 
-        // Генерируем 3 неправильных ответа
-        for (let i = 0; i < 3; i++) {
-            let random = Math.floor(Math.random() * 240);
-            let answer = allQuestions.pictures[random].author;
-            answers.push(answer);
-        }
 
-        // Перемешиваем варианты ответов, чтобы правильный не всегда был первым
-        function shuffle(array) {
-            array.sort(() => Math.random() - 0.5);
-        }
-        shuffle(answers);
-        console.log(answers)
-        return answers;
+
+
+    console.log(isRight)
+
+    // console.log(allAnswers)
+    // document.getElementById('questImg').src = './images/';
+
+}
+
+function displayQuestionAndAnswers(questionNumber) {
+
+    // Получаем правильный ответ
+    rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
+    answers.push(rightAnswerAuthor);
+    rightAnswerName = allQuestions.pictures[questionNumber].name;
+    rightAnswerYear = allQuestions.pictures[questionNumber].year;
+
+    // Генерируем 3 неправильных ответа
+    for (let i = 0; i < 3; i++) {
+        let random = Math.floor(Math.random() * 240);
+        let answer = allQuestions.pictures[random].author;
+        answers.push(answer);
     }
 
+    // Перемешиваем варианты ответов, чтобы правильный не всегда был первым
+    function shuffle(array) {
+        array.sort(() => Math.random() - 0.5);
+    }
+    shuffle(answers);
     console.log(answers)
-    if (category.includes('Art')) {
-        questTemp.innerHTML = `<div class="question__title">Who is the author of this picture?</div>
+
+    if (currentCategory.includes('Art')) {
+        questTemp.innerHTML = `<div class="question__title">Кто автор данной картины?</div>
     <img class="question__image" id="questImg" src="./assets/images/pictures/${questionNumber}.jpg" alt="">
-    <div class="question__answers">
+    <div class="question__answers allAnswers" id="allAnswers">
         <p class="answer" id="answer1">${answers[0]}</p>
         <p class="answer" id="answer2">${answers[1]}</p>
         <p class="answer" id="answer3">${answers[2]}</p>
         <p class="answer" id="answer4">${answers[3]}</p>
     </div>`;
-    }
-    // document.getElementById('questImg').src = './images/';
 
+        answerPopupCont.innerHTML = `<img class="answer__image" id="ansImg" src="./assets/images/pictures/${questionNumber}.jpg" alt="">
+        <img class="answer__icon" id="answerIcon"src="./assets/images/${isRight}.png">
+        <p class="answer__name">${rightAnswerName}</p>
+        <p class="answer__author">${rightAnswerAuthor},  ${rightAnswerYear}</p>
+        <button class="answer__next" id="nextBtn">Next</button>
+        `
+    }
 }
 
+let rightAnswerAuthor;
+let rightAnswerName;
+let rightAnswerYear;
+
+let allAnswers = document.getElementById('allAnswers');
+let answerPopupCont = document.getElementById('answPopupCont')
+let answerPopup = document.getElementById('answPopup')
 
 
+
+// ПОЛУЧАЕМ ВЫБРАННЫЙ ПОЛЬЗОВАТЕЛЕМ ВАРИАНТ ОТВЕТА И ПЕРЕХОДИМ К СЛЕД.ВОПРОСУ
+document.querySelector('body').addEventListener('click', function (event) {
+
+    let target = event.target;
+    // console.log(target);
+    // Получаем текст ответа
+    if (target.parentElement.classList.contains('allAnswers')) {
+        let chosenAnswer = target.textContent;
+        if (chosenAnswer === rightAnswerAuthor) {
+            isRight = 'right';
+        } else {
+            isRight = 'wrong';
+        }
+        document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
+        answerPopup.style.left = '0';
+
+    }
+    // Переход к следующему вопросу
+    if (target.classList.contains('answer__next')) {
+        console.log(questionNumber, currentCategory)
+        if (questionNumber === 9 && currentCategory === 'portArt' ||
+            questionNumber === 19 && currentCategory === 'landArt' ||
+            questionNumber === 29 && currentCategory === 'stillArt' ||
+            questionNumber === 39 && currentCategory === 'graphArt' ||
+            questionNumber === 49 && currentCategory === 'antArt' ||
+            questionNumber === 59 && currentCategory === 'intArt' ||
+            questionNumber === 69 && currentCategory === 'renArt' ||
+            questionNumber === 79 && currentCategory === 'surArt' ||
+            questionNumber === 89 && currentCategory === 'kitArt' ||
+            questionNumber === 99 && currentCategory === 'minArt' ||
+            questionNumber === 109 && currentCategory === 'avantArt' ||
+            questionNumber === 119 && currentCategory === 'indArt' ) {
+            console.log('stop')
+            answerPopupCont.innerHTML =
+                `<img class="end__image" id="ansImg" src="./assets/images/cup.png" alt="">
+        <p class="end__text">Congratulations!</p>
+        <p class="end__score">8/10</p>
+        <button class="end__home" id="homeBtn">Home</button>`
+        } else {
+            questionNumber++;
+            console.log(questionNumber);
+            answerPopup.style.left = '-600px';
+            displayQuestionAndAnswers(questionNumber);
+            answers = [];
+        }
+    }
+    // startQuiz(categoryName);
+});
 
 
 let allCategories = document.getElementById('artCtgrs');
+let currentCategory;
 // ПОЛУЧАЕМ НАЗВАНИЕ КАТЕГОРИЙ
+
 allCategories.onclick = (event) => {
     // Получаем элемент, по которому произошел клик
     let target = event.target;
     // Получаем его атрибут(название категории)
     if (target.parentElement.classList.contains('artist__category')) {
-        let categoryName = target.parentElement.getAttribute('data-cat');
+        currentCategory = target.parentElement.getAttribute('data-cat');
 
-        startQuiz(categoryName);
+        startQuiz(currentCategory);
+        displayQuestionAndAnswers(questionNumber);
     }
 }
