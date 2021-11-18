@@ -36,6 +36,10 @@ button {
     display: none;
 }
 
+.grey {
+    filter: grayscale(1);
+}
+
 .header {
     height: 5%;
     display: flex;
@@ -330,7 +334,6 @@ input:checked+.slider:before {
 .pictures__header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
 }
 
 .artists__title,
@@ -526,6 +529,14 @@ input:checked+.slider:before {
     background-color: #fff;
 }
 
+.score__popup_container {
+    border-radius: 15px;
+}
+
+.score__popup {
+    padding-top: 31%;
+}
+
 .answer__image {
     width: 279px;
     height: 260px;
@@ -564,4 +575,71 @@ input:checked+.slider:before {
     top: 301px;
     width: 40px;
     height: 40px;
+}
+
+.end__score {
+    color: black;
+}
+
+.end__image {
+    width: 113px;
+}
+
+.end__text {
+    color: black;
+    font-weight: 700;
+    padding: 15px 0;
+}
+
+.end__score {
+    font-size: 59px;
+    font-weight: 700;
+}
+
+.score__butons {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.end__home,
+.end__next {
+    color: #000;
+    width: 40%;
+    border-radius: 50px;
+    padding: 11px 0;
+    background-color: transparent;
+    font-family: 'Montserrat';
+    border: 1px solid black
+}
+
+.end__home {
+    margin-right: 17px;
+}
+
+.end__next {
+    background-color: #FFBCA2;
+    border-color: #FFBCA2;
+    ;
+}
+
+
+.question__pictures {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 27%;
+}
+
+.question__picture {
+        width: calc(100% / 2.1);
+        height: 163px;
+        margin-right: 0.8rem;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 35px;
+}
+
+.question__picture:nth-child(2n) {
+    margin-right: 0;
 }
