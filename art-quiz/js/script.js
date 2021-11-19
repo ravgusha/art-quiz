@@ -3,6 +3,7 @@ let settingsScr = document.getElementById('settingsScreen');
 let artistsScr = document.getElementById('artistsScreen');
 let picturesScr = document.getElementById('picturesScreen');
 let questScr = document.getElementById('questionScreen');
+let scoreScr = document.getElementById('scoreScreen');
 
 let artistQuizBtn = document.getElementById('artistsQuiz');
 let picturesQuizBtn = document.getElementById('picturesQuiz');
@@ -110,7 +111,7 @@ function startQuiz(category) {
 }
 
 function displayQuestionAndAnswers(questionNumber) {
-    console.log(questionNumber, currentCategory)
+    // console.log(questionNumber, currentCategory)
 
     // Получаем правильный ответ
     rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
@@ -200,6 +201,7 @@ let scrPopupCont = document.getElementById('scorePopupCont');
 
 // ПОЛУЧАЕМ ВЫБРАННЫЙ ПОЛЬЗОВАТЕЛЕМ ВАРИАНТ ОТВЕТА И ПЕРЕХОДИМ К СЛЕД.ВОПРОСУ
 document.querySelector('body').addEventListener('click', function (event) {
+    // console.log(questionNumber)
 
     let target = event.target;
     // console.log(target);
@@ -208,9 +210,11 @@ document.querySelector('body').addEventListener('click', function (event) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
             isRight = 'right';
+            localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
+            localStorage.setItem([currentCategory] + questionNumber, null)
         }
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
@@ -223,9 +227,11 @@ document.querySelector('body').addEventListener('click', function (event) {
         console.log(questionNumber)
         if (chosenAnswer == questionNumber) {
             isRight = 'right';
+            localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
+            localStorage.setItem([currentCategory] + questionNumber, null)
         }
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
@@ -242,11 +248,11 @@ document.querySelector('body').addEventListener('click', function (event) {
             // Переходим к следующему вопросу
         } else {
             questionNumber++;
-            console.log(questionNumber);
+            // console.log(questionNumber);
             answerPopup.style.left = '-600px';
             displayQuestionAndAnswers(questionNumber);
             answers = [];
-            console.log(questionNumber);
+            // console.log(questionNumber);
         }
     }
 
@@ -255,7 +261,9 @@ document.querySelector('body').addEventListener('click', function (event) {
         scrPopup.style.left = '0';
         document.getElementById('endScore').innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).innerHTML = `${count}/10`;
-        document.getElementById(`${currentCategory}`).parentElement.classList.add('grey')
+        document.getElementById(`${currentCategory}`).parentElement.classList.remove('grey');
+        document.getElementById(`${currentCategory}`).parentElement.querySelector('.category__results').classList.remove('hide')
+
         // console.log(document.getElementById(' + currentCategory + '))
     }
 
@@ -296,7 +304,7 @@ allCategoriesPic.addEventListener('click', getCategory);
 
 function getCategory(event) {
     // Получаем элемент, по которому произошел клик
-    let target = event.target;
+    let target = (event.target);
     // Получаем его атрибут(название категории)
     currentCategory = target.parentElement.getAttribute('data-cat');
 
@@ -304,3 +312,72 @@ function getCategory(event) {
     startQuiz(currentCategory);
     displayQuestionAndAnswers(questionNumber);
 }
+
+var results = document.getElementsByClassName("category__results");
+
+Array.from(results).forEach(function (element) {
+
+    let category = element.parentElement.getAttribute('data-cat');
+
+    element.addEventListener('click', function myFunction(event) {
+        scoreScr.classList.remove('hide');
+        artistsScr.classList.add('hide');
+        picturesScr.classList.add('hide');
+
+        event.stopPropagation();
+
+        let index = categoriesArray.indexOf(category);
+
+        questionNumber = index !== -1 ? index * 10 : 0;
+        console.log(element)
+        let fullCategoryName = element.getAttribute('data-fullcat');
+
+
+        scoreScr.innerHTML = `
+        <div class="score__header">
+            <img class="logo score__logo" src="./assets/images/logo.svg" alt="logo">
+            <button class="settings__back score__back" id="scoreBack"></button>
+            <p class="score__category">${fullCategoryName}</p>
+            
+        </div>
+        <div class="score__images allScoreImages" id="allScoreImages">
+            <img class="score__image" style=${localStorage.getItem([category] + questionNumber)} id="scrImg "src="./assets/images/pictures/${questionNumber}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+1}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+2}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+3}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+4}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+5}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+6}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+7}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+8}.jpg">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+9}.jpg">
+            </div>`
+
+
+        var scoreImages = document.getElementsByClassName("score__image");
+
+        // Отделяем цветом угаданные картины
+        let max = questionNumber + 9;
+        console.log(questionNumber, max)
+        Array.from(scoreImages).forEach(function (element) {
+            if (localStorage.getItem([category] + questionNumber) != null) {
+
+                console.log([category] + questionNumber)
+                element.style.filter = localStorage.getItem([category] + questionNumber);
+                questionNumber++;
+            }
+        })
+
+
+        document.getElementById('scoreBack').addEventListener('click', () => {
+            scoreScr.classList.add('hide');
+            if (currentCategory.includes('Art')) {
+                artistsScr.classList.remove('hide');
+            } else {
+                picturesScr.classList.remove('hide');
+            }
+
+        })
+
+    })
+});

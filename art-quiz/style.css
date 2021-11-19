@@ -108,6 +108,7 @@ button {
     transition: all 1s;
     width: 100%;
     height: 100%;
+    z-index: 4;
 }
 
 .settings__back {
@@ -356,6 +357,8 @@ input:checked+.slider:before {
     margin-bottom: 1rem;
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
 }
 
 .artist__category:nth-child(2n),
@@ -385,6 +388,7 @@ input:checked+.slider:before {
     background-color: #000;
     padding: 14px 45px;
     transition: all 1s;
+    z-index: 2;
 }
 
 .navbar__button {
@@ -631,15 +635,82 @@ input:checked+.slider:before {
 }
 
 .question__picture {
-        width: calc(100% / 2.1);
-        height: 163px;
-        margin-right: 0.8rem;
-        margin-bottom: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-        border-radius: 35px;
+    width: calc(100% / 2.1);
+    height: 163px;
+    margin-right: 0.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 35px;
 }
 
 .question__picture:nth-child(2n) {
     margin-right: 0;
+}
+
+.category__results {
+    background-color: #FFBCA2;
+    color: black;
+    width: 100%;
+    /* align-items: center; */
+    height: 15%;
+    text-align: center;
+    border-radius: 0 0 20px 20px;
+    bottom: 28px;
+    position: relative;
+}
+
+/* @media (pointer:coarse) {
+    .category__image:hover~.category__results {
+        display: block;
+        position: absolute;
+        bottom: 0;
+    }
+} */
+
+.score__images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.score__image {
+    
+    margin-right: 0.8rem;
+    margin-bottom: 1rem;
+    /* display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2; */
+    width: 155px;
+    height: 164px;
+    border-radius: 20px;
+}
+
+.score__image:nth-child(2n) {
+    margin-right: 0;
+}
+
+.score__screen {
+    background-color: black;
+    padding: 22px 15px 0 15px;
+}
+
+.score__header {
+    display: flex;
+    flex-direction: column;
+}
+
+.score__logo {
+    max-width: 166px;
+    padding-bottom: 50px;
+}
+
+.score__back {
+    padding-bottom: 30px;
+    background-repeat: no-repeat;
+}
+
+.score__category {
+    font-size: 33px;
+    font-weight: 500;
 }
