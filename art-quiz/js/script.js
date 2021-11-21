@@ -15,8 +15,6 @@ let picSettingsBtn = document.getElementById('picturesSettings');
 let settigsBackBtn = document.getElementById('settingsBack');
 
 
-// console.log(startScr, settingsScr, settingsBtn, settigsBackBtn)
-
 // КНОПКИ
 settingsBtn.addEventListener('click', () => {
     settingsScr.style.left = '0';
@@ -62,12 +60,6 @@ homeBtn1.addEventListener('click', () => {
     startScr.classList.toggle('hide');
 })
 
-// ОКРАШИВАНИЕ ИНПУТА В НАСТРОЙКАХ
-document.getElementById("myinput").oninput = function () {
-    var value = (this.value - this.min) / (this.max - this.min) * 100
-    this.style.background = 'linear-gradient(to right, #FFBCA2 0%, #FFBCA2 ' + value + '%, #fff ' + value + '%, white 100%)'
-};
-
 
 // ГЕНЕРАЦИЯ ВОПРОСОВ
 let allQuestions;
@@ -98,6 +90,7 @@ let questTemp = document.getElementById('questionMain');
 let questionNumber; // Номер вопроса
 let answers = [];
 
+let prevScreen;
 
 const categoriesArray = ['portArt', 'landArt', 'stillArt', 'graphArt', 'antArt', 'intArt', 'renArt', 'surArt', 'kitArt', 'minArt', 'avanArt', 'indArt',
     'portPic', 'landPic', 'stillAPic', 'graphPic', 'antPic', 'intPic', 'renPic', 'surPic', 'kitPic', 'minPic', 'avanPic', 'indPic'
@@ -110,11 +103,9 @@ function startQuiz(category) {
     let index = categoriesArray.indexOf(category);
 
     questionNumber = index !== -1 ? index * 10 : 0;
-    console.log(questionNumber)
 }
 
 function displayQuestionAndAnswers(questionNumber) {
-    // console.log(questionNumber, currentCategory)
 
     // Получаем правильный ответ
     rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
@@ -130,13 +121,16 @@ function displayQuestionAndAnswers(questionNumber) {
 
     // Отображаем вопрос
     if (currentCategory.includes('Art')) {
+        prevScreen = artistsScr;
         artistsScr.classList.add('hide');
         questScr.classList.remove('hide');
 
-        if (isTimeGame === true)  {
-        clearInterval(countdownTimer);
-        seconds = 55;
-        countdownTimer = setInterval(GameTimer, 1000);
+        if (isTimeGame) {
+            clearInterval(countdownTimer);
+            createProgressbar('progressbar', currentSeconds.value);
+
+            seconds = currentSeconds.value;
+            countdownTimer = setInterval(GameTimer, 1000);
         }
 
         answers.push(rightAnswerAuthor);
@@ -163,13 +157,15 @@ function displayQuestionAndAnswers(questionNumber) {
     }
 
     if (currentCategory.includes('Pic')) {
+        prevScreen = picturesScr;
         picturesScr.classList.add('hide');
         questScr.classList.remove('hide');
 
-        if(isTimeGame === true)  {
-        clearInterval(countdownTimer);
-        seconds = 5;
-        countdownTimer = setInterval(GameTimer, 1000);
+        if (isTimeGame) {
+            createProgressbar('progressbar', currentSeconds.value);
+            clearInterval(countdownTimer);
+            seconds = currentSeconds.value;
+            countdownTimer = setInterval(GameTimer, 1000);
         }
 
         answers.push(questionNumber);
@@ -217,23 +213,22 @@ let audioComplete = document.getElementById('audioComplete');
 
 // ПОЛУЧАЕМ ВЫБРАННЫЙ ПОЛЬЗОВАТЕЛЕМ ВАРИАНТ ОТВЕТА И ПЕРЕХОДИМ К СЛЕД.ВОПРОСУ
 document.querySelector('body').addEventListener('click', function (event) {
-    // console.log(questionNumber)
 
     let target = event.target;
-    // console.log(target);
+
     // Получаем текст ответа
     if (target.parentElement.classList.contains('allAnswers')) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
             isRight = 'right';
-            if (isMute == false) {
+            if (isMute == 'false') {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
-            if (isMute == false) {
+            if (isMute == 'false') {
                 audioWrong.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, null)
@@ -246,18 +241,17 @@ document.querySelector('body').addEventListener('click', function (event) {
 
     if (target.parentElement.classList.contains('allPictures')) {
         let chosenAnswer = target.getAttribute('data-num');
-        console.log(chosenAnswer)
-        console.log(questionNumber)
+
         if (chosenAnswer == questionNumber) {
             isRight = 'right';
-            if (isMute == false) {
+            if (isMute == 'false') {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
-            if (isMute == false) {
+            if (isMute == 'false') {
                 audioWrong.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, null)
@@ -270,19 +264,19 @@ document.querySelector('body').addEventListener('click', function (event) {
 
 
     if (target.classList.contains('answer__next')) {
-        console.log(questionNumber, currentCategory)
+
         // Заканчиваем, если вопрос последний в категории
         if (questionNumber % 10 == 9) {
-            answerPopup.style.left = '-600px';
+            answerPopup.style.left = '-6000px';
             displayScore();
-            if (isMute == false) {
+            if (isMute == 'false') {
                 audioComplete.play();
             }
             // Переходим к следующему вопросу
         } else {
             questionNumber++;
             // console.log(questionNumber);
-            answerPopup.style.left = '-600px';
+            answerPopup.style.left = '-6000px';
             displayQuestionAndAnswers(questionNumber);
             answers = [];
 
@@ -292,21 +286,20 @@ document.querySelector('body').addEventListener('click', function (event) {
     }
 
     function displayScore() {
-        console.log(currentCategory)
+
         scrPopup.style.left = '0';
         document.getElementById('endScore').innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).parentElement.classList.remove('grey');
         document.getElementById(`${currentCategory}`).parentElement.querySelector('.category__results').classList.remove('hide')
 
-        // console.log(document.getElementById(' + currentCategory + '))
     }
 
     // Переход с экрана результатов на главный экран
     document.getElementById('scoreHomeBtn').addEventListener('click', () => {
         questScr.classList.add('hide');
         startScr.classList.remove('hide');
-        scrPopup.style.left = '-600px';
+        scrPopup.style.left = '-6000px';
         count = 0;
     })
 
@@ -320,7 +313,7 @@ document.querySelector('body').addEventListener('click', function (event) {
             questScr.classList.add('hide');
         }
 
-        scrPopup.style.left = '-600px';
+        scrPopup.style.left = '-6000px';
         count = 0;
     })
 
@@ -329,7 +322,6 @@ document.querySelector('body').addEventListener('click', function (event) {
 
     Array.from(imagesInfo).forEach(function (element) {
         element.addEventListener('click', () => {
-            console.log(element, element.lastChild.previousElementSibling)
             element.lastChild.previousElementSibling.classList.remove('hide');
         })
     })
@@ -374,7 +366,7 @@ Array.from(results).forEach(function (element) {
         let index = categoriesArray.indexOf(category);
 
         questionNumber = index !== -1 ? index * 10 : 0;
-        console.log(element)
+
         let fullCategoryName = element.getAttribute('data-fullcat');
 
         scoreScr.innerHTML = `
@@ -472,10 +464,10 @@ Array.from(results).forEach(function (element) {
 
         // Отделяем цветом угаданные картины
         let max = questionNumber + 9;
-        console.log(questionNumber, max)
+
         Array.from(scoreImages).forEach(function (element) {
             if (localStorage.getItem([category] + questionNumber) != null) {
-                console.log(element.nextSibling.nextSibling)
+
                 element.style.filter = localStorage.getItem([category] + questionNumber);
                 questionNumber++;
             }
@@ -498,37 +490,53 @@ Array.from(results).forEach(function (element) {
 
 });
 
-let isMute = false;
+let isMute = localStorage.getItem('isMute');
+
+if (isMute == 'true') {
+    document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
+} 
+
 
 // ОТКЛЮЧЕНИЕ ЗВУКА
 document.getElementById('mute').addEventListener('click', () => {
     if (isMute == false) {
+        document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
         console.log('sound off');
         isMute = true;
         audioWrong.muted == true;
         audioRight.muted == true;
         audioComplete.muted == true;
+        localStorage.setItem('isMute', true);
     } else {
         isMute = false;
+        document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-on.png)';
         console.log('sound on');
         audioWrong.muted == false;
         audioRight.muted == false;
         audioComplete.muted == false;
+        localStorage.setItem('isMute', false);
     }
 })
 
 // УМЕНЬШЕНИЕ ГРОМКОСТИ
+let volume = document.getElementById("myinput");
+volume.value = localStorage.getItem('volume');
+
+
 function setVolume() {
-    audioWrong.volume = document.getElementById("myinput").value;
-    audioRight.volume = document.getElementById("myinput").value;
-    audioComplete.volume = document.getElementById("myinput").value;
+    audioWrong.volume = volume.value;
+    audioRight.volume = volume.value;
+    audioComplete.volume = volume.value;
+    localStorage.setItem('volume', volume.value);
 }
 
 // ТАЙМЕР
+let currentSeconds = document.getElementById('timeCount');
+currentSeconds.value = localStorage.getItem('currentSeconds');
 
 var isWaiting = false;
 var isRunning = false;
-var seconds = 55;
+var seconds = currentSeconds.value;
 var countdownTimer;
 
 function GameTimer() {
@@ -538,37 +546,81 @@ function GameTimer() {
         remainingSeconds = "0" + remainingSeconds;
     }
     document.getElementById('progressTime').innerHTML = minutes + ":" + remainingSeconds;
-    if (seconds == 0) {
+    if (seconds == 1) {
         isRunning = true;
         isRight = 'wrong';
-        if (isMute == false) {
+        if (isMute == 'false') {
             audioWrong.play();
         }
-        // console.log(questionNumber);
         answerPopup.style.left = '0';
         localStorage.setItem([currentCategory] + questionNumber, null);
-        seconds = 5;
+        seconds = currentSeconds.value;
         clearInterval(countdownTimer);
-        console.log(isRight)
     } else {
+
         isWaiting = true;
         seconds--;
     }
-    
 }
 
-// countdownTimer = setInterval(GameTimer, 1000);
+let isTimeGame = localStorage.getItem('isTimeGame');
+document.getElementById('timeSwitcher').checked = localStorage.getItem('isTimeGame');
 
 
-let isTimeGame = true;
+// if (isTimeGame == false) {
+//     document.getElementById('timeSwitcher').checked = false;
+// } 
 
-document.getElementById('timeSwitcher').addEventListener('click', ()=> {
-    
+
+document.getElementById('timeSwitcher').addEventListener('click', () => {
+
     if (isTimeGame) {
         isTimeGame = false;
         document.getElementById('headerTime').style.opacity = 0;
+        localStorage.setItem('isTimeGame', isTimeGame)
     } else {
         isTimeGame = true;
+        localStorage.setItem('isTimeGame', isTimeGame)
     }
+
     console.log(isTimeGame)
+})
+
+// РЕГУЛИРОВАНИЕ ВРЕМЕНИ ИГРЫ В НАСТРОЙКАХ
+
+document.getElementById('minus').addEventListener('click', event => {
+    event.preventDefault();
+    const currentValue = Number(currentSeconds.value) || 0;
+    currentSeconds.value = currentValue - 5;
+    if (currentSeconds.value < 0) currentSeconds.value = 0;
+    localStorage.setItem('currentSeconds', currentSeconds.value);
+});
+
+document.getElementById('plus').addEventListener('click', event => {
+    event.preventDefault();
+    const currentValue = Number(currentSeconds.value) || 0;
+    currentSeconds.value = currentValue + 5;
+    if (currentSeconds.value > 30) currentSeconds.value = 30;
+    localStorage.setItem('currentSeconds', currentSeconds.value);
+});
+
+// ПРОГРЕСС-БАР ТАЙМЕРА
+
+function createProgressbar(id, duration) {
+    var progressbar = document.getElementById(id);
+    progressbar.className = 'progressbar';
+
+    var progressbarinner = document.querySelector('.inner');
+    progressbarinner.style.animationDuration = duration + 's';
+    progressbar.appendChild(progressbarinner);
+
+    progressbarinner.style.animationPlayState = 'running';
+}
+
+// ВОЗВРАЩЕНИЕ НАЗАД В ПРОЦЕССЕ ИГРЫ
+
+document.getElementById('exit').addEventListener('click', () => {
+    prevScreen.classList.remove('hide');
+    questScr.classList.add('hide');
+    clearInterval(countdownTimer);
 })
