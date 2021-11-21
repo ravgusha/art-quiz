@@ -36,11 +36,8 @@
             </div>
             <div class="volume__block">
                 <p class="volume__title  settings__subtitle">Volume</p>
-                <input id="myinput" class="volume__input" type="range" min="0" max="100" value="50" step="1">
-                <div class="volume__icons">
-                    <button class="volume__off"></button>
-                    <button class="volume__on"></button>
-                </div>
+                <input id="myinput" class="volume__input" type="range" min="0" max="1" value="0.20" step="0.01"
+                    onchange="setVolume()"> <button class="volume__off" id="mute"></button>
             </div>
             <div class="time-game__block">
                 <p class="time-game__title settings__subtitle">Time game</p>
@@ -48,7 +45,7 @@
                     <p class="time-switcher">On</p>
                     <label class="switch">
                         <input type="checkbox" checked>
-                        <span class="slider round"></span>
+                        <span class="slider round" id="timeSwitcher"></span>
                     </label>
                 </div>
 
@@ -85,7 +82,7 @@
                         <p class="category__score" id="portArt"></p>
                         <img src="./assets/images/pictures/0.jpg" alt="" class="category__image">
                         <div class="category__results hide" id="category__score" data-fullcat="Portrait">
-                            <p class="hover__score" >Score</p>
+                            <p class="hover__score">Score</p>
                         </div>
                     </div>
                     <div class="artist__category grey" data-cat="landArt">
@@ -180,7 +177,7 @@
                     </div>
                     <div class="artist__category grey" data-cat="indArt">
                         <p class="category__title">Industrial</p>
-                        <p class="category__score" id="indArt" ></p>
+                        <p class="category__score" id="indArt"></p>
                         <img src="./assets/images/pictures/11.jpg" alt="" class="category__image">
                         <div class="category__results hide" data-fullcat="Industrial">
                             <p class="hover__score">Score</p>
@@ -215,10 +212,12 @@
             <div class="question__container">
                 <div class="quiestion__header">
                     <span class="close"></span>
-                    <div id="progressContainer">
-                        <div id="progress"></div>
+                    <div class="header__time" id="headerTime">
+                        <div id="progressContainer">
+                            <div id="progress"></div>
+                        </div>
+                        <p class="progress__time" id="progressTime">0:00</з>
                     </div>
-                    <p class="progress__time">3:41</з>
                 </div>
                 <div class="question__main" id="questionMain"></div>
                 <footer class="footer">
@@ -383,6 +382,9 @@
         </div>
         <div class="score__screen hide" id="scoreScreen"></div>
     </div>
+    <audio src="./assets/audios/complete.wav" id="audioComplete"></audio>
+    <audio src="./assets/audios/right.wav" id="audioRight"></audio>
+    <audio src="./assets/audios/wrong.wav" id="audioWrong"></audio>
     <script src="./js/script.js"></script>
 </body>
 

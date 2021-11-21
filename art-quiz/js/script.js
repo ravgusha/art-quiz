@@ -4,6 +4,7 @@ let artistsScr = document.getElementById('artistsScreen');
 let picturesScr = document.getElementById('picturesScreen');
 let questScr = document.getElementById('questionScreen');
 let scoreScr = document.getElementById('scoreScreen');
+let scrPopup = document.getElementById('scrPopup');
 
 let artistQuizBtn = document.getElementById('artistsQuiz');
 let picturesQuizBtn = document.getElementById('picturesQuiz');
@@ -70,8 +71,10 @@ document.getElementById("myinput").oninput = function () {
 
 // ГЕНЕРАЦИЯ ВОПРОСОВ
 let allQuestions;
-let isRight;
+let isRight = 'wrong';
 let count = 0;
+
+
 
 async function getImages() {
     let images = './js/images.json';
@@ -130,6 +133,12 @@ function displayQuestionAndAnswers(questionNumber) {
         artistsScr.classList.add('hide');
         questScr.classList.remove('hide');
 
+        if (isTimeGame === true)  {
+        clearInterval(countdownTimer);
+        seconds = 55;
+        countdownTimer = setInterval(GameTimer, 1000);
+        }
+
         answers.push(rightAnswerAuthor);
 
         // Генерируем 3 неправильных ответа
@@ -156,6 +165,12 @@ function displayQuestionAndAnswers(questionNumber) {
     if (currentCategory.includes('Pic')) {
         picturesScr.classList.add('hide');
         questScr.classList.remove('hide');
+
+        if(isTimeGame === true)  {
+        clearInterval(countdownTimer);
+        seconds = 5;
+        countdownTimer = setInterval(GameTimer, 1000);
+        }
 
         answers.push(questionNumber);
 
@@ -192,12 +207,13 @@ let rightAnswerAuthor;
 let rightAnswerName;
 let rightAnswerYear;
 
-let allAnswers = document.getElementById('allAnswers');
 let answerPopupCont = document.getElementById('answPopupCont')
 let answerPopup = document.getElementById('answPopup')
-let scrPopupCont = document.getElementById('scorePopupCont');
 
 
+let audioRight = document.getElementById('audioRight');
+let audioWrong = document.getElementById('audioWrong');
+let audioComplete = document.getElementById('audioComplete');
 
 // ПОЛУЧАЕМ ВЫБРАННЫЙ ПОЛЬЗОВАТЕЛЕМ ВАРИАНТ ОТВЕТА И ПЕРЕХОДИМ К СЛЕД.ВОПРОСУ
 document.querySelector('body').addEventListener('click', function (event) {
@@ -210,12 +226,19 @@ document.querySelector('body').addEventListener('click', function (event) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
             isRight = 'right';
+            if (isMute == false) {
+                audioRight.play();
+            }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
+            if (isMute == false) {
+                audioWrong.play();
+            }
             localStorage.setItem([currentCategory] + questionNumber, null)
         }
+        clearInterval(countdownTimer);
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
 
@@ -227,12 +250,19 @@ document.querySelector('body').addEventListener('click', function (event) {
         console.log(questionNumber)
         if (chosenAnswer == questionNumber) {
             isRight = 'right';
+            if (isMute == false) {
+                audioRight.play();
+            }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = 'wrong';
+            if (isMute == false) {
+                audioWrong.play();
+            }
             localStorage.setItem([currentCategory] + questionNumber, null)
         }
+        clearInterval(countdownTimer);
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
 
@@ -245,6 +275,9 @@ document.querySelector('body').addEventListener('click', function (event) {
         if (questionNumber % 10 == 9) {
             answerPopup.style.left = '-600px';
             displayScore();
+            if (isMute == false) {
+                audioComplete.play();
+            }
             // Переходим к следующему вопросу
         } else {
             questionNumber++;
@@ -252,8 +285,10 @@ document.querySelector('body').addEventListener('click', function (event) {
             answerPopup.style.left = '-600px';
             displayQuestionAndAnswers(questionNumber);
             answers = [];
+
             // console.log(questionNumber);
         }
+
     }
 
     function displayScore() {
@@ -287,6 +322,16 @@ document.querySelector('body').addEventListener('click', function (event) {
 
         scrPopup.style.left = '-600px';
         count = 0;
+    })
+
+
+    var imagesInfo = document.getElementsByClassName("score__item");
+
+    Array.from(imagesInfo).forEach(function (element) {
+        element.addEventListener('click', () => {
+            console.log(element, element.lastChild.previousElementSibling)
+            element.lastChild.previousElementSibling.classList.remove('hide');
+        })
     })
 
 });
@@ -332,7 +377,6 @@ Array.from(results).forEach(function (element) {
         console.log(element)
         let fullCategoryName = element.getAttribute('data-fullcat');
 
-
         scoreScr.innerHTML = `
         <div class="score__header">
             <img class="logo score__logo" src="./assets/images/logo.svg" alt="logo">
@@ -341,17 +385,87 @@ Array.from(results).forEach(function (element) {
             
         </div>
         <div class="score__images allScoreImages" id="allScoreImages">
-            <img class="score__image" style=${localStorage.getItem([category] + questionNumber)} id="scrImg "src="./assets/images/pictures/${questionNumber}.jpg">
+        <div class="score__item">
+            <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+1}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+1].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+1].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+1].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+2}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+2].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+2].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+2].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+3}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+3].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+3].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+3].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+4}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+4].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+4].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+4].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+5}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+5].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+5].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+5].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+6}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+6].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+6].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+6].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+7}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+7].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+7].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+7].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+8}.jpg">
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+8].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+8].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+8].year}</p>
+            </div>
+        </div>
+        <div class="score__item">
             <img class="score__image" id="scrImg "src="./assets/images/pictures/${questionNumber+9}.jpg">
-            </div>`
+            <div class="image__info hide">
+                <p class="image__name">${allQuestions.pictures[questionNumber+9].name}</p>
+                <p class="image__author">${allQuestions.pictures[questionNumber+9].author}</p>
+                <p class="image__year">${allQuestions.pictures[questionNumber+9].year}</p>
+            </div>
+        </div>
+        </div>`
 
 
         var scoreImages = document.getElementsByClassName("score__image");
@@ -361,8 +475,7 @@ Array.from(results).forEach(function (element) {
         console.log(questionNumber, max)
         Array.from(scoreImages).forEach(function (element) {
             if (localStorage.getItem([category] + questionNumber) != null) {
-
-                console.log([category] + questionNumber)
+                console.log(element.nextSibling.nextSibling)
                 element.style.filter = localStorage.getItem([category] + questionNumber);
                 questionNumber++;
             }
@@ -380,4 +493,82 @@ Array.from(results).forEach(function (element) {
         })
 
     })
+
+
+
 });
+
+let isMute = false;
+
+// ОТКЛЮЧЕНИЕ ЗВУКА
+document.getElementById('mute').addEventListener('click', () => {
+    if (isMute == false) {
+        console.log('sound off');
+        isMute = true;
+        audioWrong.muted == true;
+        audioRight.muted == true;
+        audioComplete.muted == true;
+    } else {
+        isMute = false;
+        console.log('sound on');
+        audioWrong.muted == false;
+        audioRight.muted == false;
+        audioComplete.muted == false;
+    }
+})
+
+// УМЕНЬШЕНИЕ ГРОМКОСТИ
+function setVolume() {
+    audioWrong.volume = document.getElementById("myinput").value;
+    audioRight.volume = document.getElementById("myinput").value;
+    audioComplete.volume = document.getElementById("myinput").value;
+}
+
+// ТАЙМЕР
+
+var isWaiting = false;
+var isRunning = false;
+var seconds = 55;
+var countdownTimer;
+
+function GameTimer() {
+    var minutes = Math.round((seconds - 30) / 60);
+    var remainingSeconds = seconds % 60;
+    if (remainingSeconds < 10) {
+        remainingSeconds = "0" + remainingSeconds;
+    }
+    document.getElementById('progressTime').innerHTML = minutes + ":" + remainingSeconds;
+    if (seconds == 0) {
+        isRunning = true;
+        isRight = 'wrong';
+        if (isMute == false) {
+            audioWrong.play();
+        }
+        // console.log(questionNumber);
+        answerPopup.style.left = '0';
+        localStorage.setItem([currentCategory] + questionNumber, null);
+        seconds = 5;
+        clearInterval(countdownTimer);
+        console.log(isRight)
+    } else {
+        isWaiting = true;
+        seconds--;
+    }
+    
+}
+
+// countdownTimer = setInterval(GameTimer, 1000);
+
+
+let isTimeGame = true;
+
+document.getElementById('timeSwitcher').addEventListener('click', ()=> {
+    
+    if (isTimeGame) {
+        isTimeGame = false;
+        document.getElementById('headerTime').style.opacity = 0;
+    } else {
+        isTimeGame = true;
+    }
+    console.log(isTimeGame)
+})
