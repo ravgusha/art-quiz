@@ -55,6 +55,18 @@ button {
     position: relative;
 }
 
+.header__settings:hover,
+.settings__back:hover,
+.artists__settings:hover,
+.pictures__settings:hover {
+    transform: scale(1.3);
+}
+
+.close:hover,
+.hover__score:hover {
+    cursor: pointer;
+}
+
 .start__main {
     display: flex;
     flex-direction: column;
@@ -84,6 +96,21 @@ button {
     border-radius: 56px;
     padding: 10px 64px;
     white-space: nowrap;
+}
+
+.quiz__artist:hover,
+.quiz__pictures:hover,
+.answer:hover {
+    box-shadow: inset 0 0 0 2em #FFBCA2;
+    cursor: pointer;
+}
+
+.navbar:hover,
+.category__image:hover,
+.question__picture:hover {
+    box-shadow: 0 0.5em 0.5em -0.4em #FFBCA2;
+    transform: translateY(-0.25em);
+    cursor: pointer;
 }
 
 .quiz__artist {
