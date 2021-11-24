@@ -279,19 +279,16 @@ document.querySelector('body').addEventListener('click', function (event) {
             answerPopup.style.left = '-6000px';
             displayQuestionAndAnswers(questionNumber);
             answers = [];
-
-            // console.log(questionNumber);
         }
-
     }
-
+    // Отображаем результат на категории 
     function displayScore() {
-
         scrPopup.style.left = '0';
         document.getElementById('endScore').innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).innerHTML = `${count}/10`;
-        document.getElementById(`${currentCategory}`).parentElement.classList.remove('grey');
-        document.getElementById(`${currentCategory}`).parentElement.querySelector('.category__results').classList.remove('hide')
+        console.log(document.getElementById(`${currentCategory}`), )
+        document.getElementById(`${currentCategory}`).parentElement.parentElement.classList.remove('grey');
+        document.getElementById(`${currentCategory}`).parentElement.parentElement.querySelector('.category__results').classList.remove('hide')
 
     }
 
@@ -317,7 +314,6 @@ document.querySelector('body').addEventListener('click', function (event) {
         count = 0;
     })
 
-
     var imagesInfo = document.getElementsByClassName("score__item");
 
     Array.from(imagesInfo).forEach(function (element) {
@@ -325,7 +321,6 @@ document.querySelector('body').addEventListener('click', function (event) {
             element.lastChild.previousElementSibling.classList.remove('hide');
         })
     })
-
 });
 
 
@@ -485,16 +480,13 @@ Array.from(results).forEach(function (element) {
         })
 
     })
-
-
-
 });
 
 let isMute = localStorage.getItem('isMute');
 
 if (isMute == 'true') {
     document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
-} 
+}
 
 
 // ОТКЛЮЧЕНИЕ ЗВУКА
@@ -624,3 +616,6 @@ document.getElementById('exit').addEventListener('click', () => {
     questScr.classList.add('hide');
     clearInterval(countdownTimer);
 })
+
+
+console.log("не успела доделась медиа-запросы на большие расширения, прошу не проверять 1 день. СПасибо, добрый человек :)")
