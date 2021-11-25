@@ -482,14 +482,12 @@ Array.from(results).forEach(function (element) {
     })
 });
 
-let isMute = localStorage.getItem('isMute');
-
-if (isMute == 'true') {
-    document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
-}
 
 
 // ОТКЛЮЧЕНИЕ ЗВУКА
+
+let isMute = localStorage.getItem('isMute') || 'false';
+
 document.getElementById('mute').addEventListener('click', () => {
     if (isMute == false) {
         document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
@@ -524,7 +522,7 @@ function setVolume() {
 
 // ТАЙМЕР
 let currentSeconds = document.getElementById('timeCount');
-currentSeconds.value = localStorage.getItem('currentSeconds');
+currentSeconds.value = localStorage.getItem('currentSeconds') || 15;
 
 var isWaiting = false;
 var isRunning = false;
@@ -556,7 +554,16 @@ function GameTimer() {
 }
 
 let isTimeGame = localStorage.getItem('isTimeGame');
-document.getElementById('timeSwitcher').checked = localStorage.getItem('isTimeGame');
+if (localStorage.getItem('isTimeGame') == 'false') {
+    document.getElementById('timeSwitcher').checked = false;
+    document.getElementById('headerTime').style.opacity = 0;
+    isTimeGame = false;
+} else {
+    document.getElementById('timeSwitcher').checked = true;
+    isTimeGame = true;
+    
+}
+
 
 
 // if (isTimeGame == false) {
@@ -616,6 +623,3 @@ document.getElementById('exit').addEventListener('click', () => {
     questScr.classList.add('hide');
     clearInterval(countdownTimer);
 })
-
-
-console.log("не успела доделась медиа-запросы на большие расширения, прошу не проверять 1 день. СПасибо, добрый человек :)")
