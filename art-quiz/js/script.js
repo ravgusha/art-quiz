@@ -140,7 +140,8 @@ function displayQuestionAndAnswers(questionNumber) {
             let random = Math.floor(Math.random() * 240);
             let answer = allQuestions.pictures[random].author;
             if (answer === rightAnswerAuthor) {
-                answer = allQuestions.pictures[random + 1].author;
+                random = Math.floor(Math.random() * 240);
+                answer = allQuestions.pictures[random].author;
             }
             answers.push(answer);
             shuffle(answers);
@@ -174,7 +175,7 @@ function displayQuestionAndAnswers(questionNumber) {
         for (let i = 0; i < 3; i++) {
             let random = Math.floor(Math.random() * 240);
             if (random === questionNumber) {
-                random = random + 1;
+                random = random = Math.floor(Math.random() * 240);
             }
             answers.push(random);
             shuffle(answers);
@@ -224,14 +225,15 @@ document.querySelector('body').addEventListener('click', function (event) {
             if (isMute == 'false') {
                 audioRight.play();
             }
-            localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
+            localStorage.setItem([currentCategory] + questionNumber, null);
             count++;
         } else {
             isRight = 'wrong';
             if (isMute == 'false') {
                 audioWrong.play();
             }
-            localStorage.setItem([currentCategory] + questionNumber, null)
+            localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)');
+            
         }
         clearInterval(countdownTimer);
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
