@@ -459,16 +459,16 @@ document.getElementById('mute').addEventListener('click', () => {
     if (isMute == false) {
         document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
         isMute = true;
-        audioWrong.muted == true;
-        audioRight.muted == true;
-        audioComplete.muted == true;
+        audioWrong.muted = true;
+        audioRight.muted = true;
+        audioComplete.muted = true;
         localStorage.setItem('isMute', true);
     } else {
         isMute = false;
         document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-on.png)';
-        audioWrong.muted == false;
-        audioRight.muted == false;
-        audioComplete.muted == false;
+        audioWrong.muted = false;
+        audioRight.muted = false;
+        audioComplete.muted = false;
         localStorage.setItem('isMute', false);
     }
 })
