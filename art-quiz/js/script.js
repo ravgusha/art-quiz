@@ -202,14 +202,14 @@ document.querySelector('body').addEventListener('click', function (event) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
             isRight = true;
-            if (isMute == 'false') {
+            if (isMute === false) {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, null);
             count++;
         } else {
             isRight = false;
-            if (isMute == 'false') {
+            if (isMute === false) {
                 audioWrong.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)');
@@ -225,14 +225,14 @@ document.querySelector('body').addEventListener('click', function (event) {
 
         if (chosenAnswer == questionNumber) {
             isRight = true;
-            if (isMute == 'false') {
+            if (isMute === false) {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
             isRight = false;
-            if (isMute == 'false') {
+            if (isMute === false) {
                 audioWrong.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, null)
@@ -247,7 +247,7 @@ document.querySelector('body').addEventListener('click', function (event) {
         if (questionNumber % 10 == 9) {
             answerPopup.style.left = '-6000px';
             displayScore();
-            if (isMute == 'false') {
+            if (isMute === false) {
                 audioComplete.play();
             }
             // Go to the next question
@@ -453,7 +453,7 @@ Array.from(results).forEach(function (element) {
 
 // MUTE
 
-let isMute = localStorage.getItem('isMute') || 'false';
+let isMute = localStorage.getItem('isMute') || false;
 
 document.getElementById('mute').addEventListener('click', () => {
     if (isMute == false) {
@@ -507,7 +507,7 @@ function GameTimer() {
     if (seconds == 1) {
         isRunning = true;
         isRight = false;
-        if (isMute == 'false') {
+        if (isMute === false) {
             audioWrong.play();
         }
         answerPopup.style.left = '0';
