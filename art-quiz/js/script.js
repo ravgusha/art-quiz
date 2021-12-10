@@ -16,6 +16,8 @@ let artSettingsBtn = document.getElementById('artistSettings');
 let picSettingsBtn = document.getElementById('picturesSettings');
 let settigsBackBtn = document.getElementById('settingsBack');
 
+const hide = 'hide';
+
 // BUTTONS
 
 settingsBtn.addEventListener('click', () => {
@@ -40,26 +42,26 @@ picSettingsBtn.addEventListener('click', () => {
 });
 
 artistQuizBtn.addEventListener('click', () => {
-    startScr.classList.toggle('hide');
-    artistsScr.classList.toggle('hide');
+    startScr.classList.toggle(hide);
+    artistsScr.classList.toggle(hide);
 })
 
 picturesQuizBtn.addEventListener('click', () => {
-    startScr.classList.toggle('hide');
-    picturesScr.classList.toggle('hide');
+    startScr.classList.toggle(hide);
+    picturesScr.classList.toggle(hide);
 })
 
 let homeBtn = document.getElementById('navbarHome');
 let homeBtn1 = document.getElementById('navbarHome1');
 
 homeBtn.addEventListener('click', () => {
-    artistsScr.classList.toggle('hide');
-    startScr.classList.toggle('hide');
+    artistsScr.classList.toggle(hide);
+    startScr.classList.toggle(hide);
 })
 
 homeBtn1.addEventListener('click', () => {
-    picturesScr.classList.toggle('hide');
-    startScr.classList.toggle('hide');
+    picturesScr.classList.toggle(hide);
+    startScr.classList.toggle(hide);
 })
 
 // QUESTION GENERATION
@@ -103,8 +105,8 @@ function displayQuestionAndAnswers(questionNumber) {
     // Display question
     if (currentCategory.includes('Art')) {
         prevScreen = artistsScr;
-        artistsScr.classList.add('hide');
-        questScr.classList.remove('hide');
+        artistsScr.classList.add(hide);
+        questScr.classList.remove(hide);
 
         if (isTimeGame) {
             clearInterval(countdownTimer);
@@ -141,8 +143,8 @@ function displayQuestionAndAnswers(questionNumber) {
 
     if (currentCategory.includes('Pic')) {
         prevScreen = picturesScr;
-        picturesScr.classList.add('hide');
-        questScr.classList.remove('hide');
+        picturesScr.classList.add(hide);
+        questScr.classList.remove(hide);
 
         if (isTimeGame) {
             createProgressbar('progressbar', currentSeconds.value);
@@ -262,14 +264,14 @@ document.querySelector('body').addEventListener('click', function (event) {
         document.getElementById('endScore').innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).parentElement.parentElement.classList.remove('grey');
-        document.getElementById(`${currentCategory}`).parentElement.parentElement.querySelector('.category__results').classList.remove('hide')
+        document.getElementById(`${currentCategory}`).parentElement.parentElement.querySelector('.category__results').classList.remove(hide)
 
     }
 
     // Go from the results screen to the main screen
     document.getElementById('scoreHomeBtn').addEventListener('click', () => {
-        questScr.classList.add('hide');
-        startScr.classList.remove('hide');
+        questScr.classList.add(hide);
+        startScr.classList.remove(hide);
         scrPopup.style.left = '-6000px';
         count = 0;
     })
@@ -277,22 +279,22 @@ document.querySelector('body').addEventListener('click', function (event) {
     // Go from the results screen to the category selection screen
     document.getElementById('nextQuizBtn').addEventListener('click', () => {
         if (currentCategory.includes('Pic')) {
-            picturesScr.classList.remove('hide');
-            questScr.classList.add('hide');
+            picturesScr.classList.remove(hide);
+            questScr.classList.add(hide);
         } else if (currentCategory.includes('Art')) {
-            artistsScr.classList.remove('hide');
-            questScr.classList.add('hide');
+            artistsScr.classList.remove(hide);
+            questScr.classList.add(hide);
         }
 
         scrPopup.style.left = '-6000px';
         count = 0;
     })
 
-    var imagesInfo = document.getElementsByClassName("score__item");
+    const imagesInfo = document.getElementsByClassName("score__item");
 
-    Array.from(imagesInfo).forEach(function (element) {
+    Array.from(imagesInfo).forEach((element) => {
         element.addEventListener('click', () => {
-            element.lastChild.previousElementSibling.classList.remove('hide');
+            element.lastChild.previousElementSibling.classList.remove(hide);
         })
     })
 });
@@ -321,9 +323,9 @@ Array.from(results).forEach(function (element) {
     let category = element.parentElement.getAttribute('data-cat');
 
     element.addEventListener('click', function myFunction(event) {
-        scoreScr.classList.remove('hide');
-        artistsScr.classList.add('hide');
-        picturesScr.classList.add('hide');
+        scoreScr.classList.remove(hide);
+        artistsScr.classList.add(hide);
+        picturesScr.classList.add(hide);
 
         event.stopPropagation();
 
@@ -437,11 +439,11 @@ Array.from(results).forEach(function (element) {
         })
 
         document.getElementById('scoreBack').addEventListener('click', () => {
-            scoreScr.classList.add('hide');
+            scoreScr.classList.add(hide);
             if (currentCategory.includes('Art')) {
-                artistsScr.classList.remove('hide');
+                artistsScr.classList.remove(hide);
             } else {
-                picturesScr.classList.remove('hide');
+                picturesScr.classList.remove(hide);
             }
         })
     })
@@ -573,7 +575,7 @@ function createProgressbar(id, duration) {
 // GOING BACK DURING THE GAME
 
 document.getElementById('exit').addEventListener('click', () => {
-    prevScreen.classList.remove('hide');
-    questScr.classList.add('hide');
+    prevScreen.classList.remove(hide);
+    questScr.classList.add(hide);
     clearInterval(countdownTimer);
 })
