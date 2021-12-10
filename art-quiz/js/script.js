@@ -66,6 +66,8 @@ let allQuestions;
 let isRight = false;
 let count = 0;
 
+let categoryQuanityOfQuestions = 120;
+
 async function getImages() {
     let images = './js/images.json';
     const res = await fetch(images);
@@ -76,8 +78,8 @@ async function getImages() {
     const artistQuestions = [];
     const picturesQuestions = [];
 
-    artistQuestions.push(allQuestions.pictures.slice(0, 120));
-    picturesQuestions.push(allQuestions.pictures.slice(120, 240)); // Parsing the array
+    artistQuestions.push(allQuestions.pictures.slice(0, categoryQuanityOfQuestions));
+    picturesQuestions.push(allQuestions.pictures.slice(categoryQuanityOfQuestions, allQuestions.length)); // Parsing the array
 }
 
 getImages();
