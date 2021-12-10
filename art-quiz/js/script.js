@@ -65,7 +65,7 @@ homeBtn1.addEventListener('click', () => {
 // QUESTION GENERATION
 
 let allQuestions;
-let isRight = 'wrong';
+let isRight = false;
 let count = 0;
 
 async function getImages() {
@@ -216,14 +216,14 @@ document.querySelector('body').addEventListener('click', function (event) {
     if (target.parentElement.classList.contains('allAnswers')) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
-            isRight = 'right';
+            isRight = true;
             if (isMute == 'false') {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, null);
             count++;
         } else {
-            isRight = 'wrong';
+            isRight = false;
             if (isMute == 'false') {
                 audioWrong.play();
             }
@@ -240,14 +240,14 @@ document.querySelector('body').addEventListener('click', function (event) {
         let chosenAnswer = target.getAttribute('data-num');
 
         if (chosenAnswer == questionNumber) {
-            isRight = 'right';
+            isRight = true;
             if (isMute == 'false') {
                 audioRight.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)')
             count++;
         } else {
-            isRight = 'wrong';
+            isRight = false;
             if (isMute == 'false') {
                 audioWrong.play();
             }
@@ -537,7 +537,7 @@ function GameTimer() {
     document.getElementById('progressTime').innerHTML = minutes + ":" + remainingSeconds;
     if (seconds == 1) {
         isRunning = true;
-        isRight = 'wrong';
+        isRight = false;
         if (isMute == 'false') {
             audioWrong.play();
         }
