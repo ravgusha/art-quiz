@@ -14,7 +14,6 @@ let artSettingsBtn = document.getElementById('artistSettings');
 let picSettingsBtn = document.getElementById('picturesSettings');
 let settigsBackBtn = document.getElementById('settingsBack');
 
-
 // BUTTONS
 
 settingsBtn.addEventListener('click', () => {
@@ -61,7 +60,6 @@ homeBtn1.addEventListener('click', () => {
     startScr.classList.toggle('hide');
 })
 
-
 // QUESTION GENERATION
 
 let allQuestions;
@@ -87,7 +85,6 @@ getImages();
 let questTemp = document.getElementById('questionMain');
 let questionNumber; // Question number
 let answers = [];
-
 let prevScreen;
 
 const categoriesArray = ['portArt', 'landArt', 'stillArt', 'graphArt', 'antArt', 'intArt', 'renArt', 'surArt', 'kitArt', 'minArt', 'avanArt', 'indArt',
@@ -102,7 +99,6 @@ function startQuiz(category) {
 }
 
 function displayQuestionAndAnswers(questionNumber) {
-
     // Get the right answer
     rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
     rightAnswerName = allQuestions.pictures[questionNumber].name;
@@ -175,7 +171,6 @@ function displayQuestionAndAnswers(questionNumber) {
             shuffle(answers);
         }
 
-
         questTemp.innerHTML = ` <div class="question__title">${rightAnswerAuthor} - автор какой из картин? </div>
         <div class="question__pictures allPictures" id="allPictures">
         <img class="question__picture" id="questPic" data-num=${answers[0]} src="./assets/images/pictures/${answers[0]}.jpg" alt="">
@@ -189,9 +184,7 @@ function displayQuestionAndAnswers(questionNumber) {
     <img class="answer__icon" id="answerIcon"src="./assets/images/${isRight}.png">
     <p class="answer__name">${rightAnswerName}</p>
     <p class="answer__author">${rightAnswerAuthor},  ${rightAnswerYear}</p>
-    <button class="answer__next" id="nextBtn">Next</button>
-    `
-
+    <button class="answer__next" id="nextBtn">Next</button>`
 }
 
 let rightAnswerAuthor;
@@ -201,7 +194,6 @@ let rightAnswerYear;
 let answerPopupCont = document.getElementById('answPopupCont')
 let answerPopup = document.getElementById('answPopup')
 
-
 let audioRight = document.getElementById('audioRight');
 let audioWrong = document.getElementById('audioWrong');
 let audioComplete = document.getElementById('audioComplete');
@@ -209,7 +201,6 @@ let audioComplete = document.getElementById('audioComplete');
 // GET THE USER'S SELECTED ANSWER AND GO TO THE NEXT QUESTION
 
 document.querySelector('body').addEventListener('click', function (event) {
-
     let target = event.target;
 
     // Get answer text
@@ -228,12 +219,11 @@ document.querySelector('body').addEventListener('click', function (event) {
                 audioWrong.play();
             }
             localStorage.setItem([currentCategory] + questionNumber, 'grayscale(100%)');
-            
+
         }
         clearInterval(countdownTimer);
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
-
     }
 
     if (target.parentElement.classList.contains('allPictures')) {
@@ -256,12 +246,9 @@ document.querySelector('body').addEventListener('click', function (event) {
         clearInterval(countdownTimer);
         document.getElementById('answerIcon').src = `./assets/images/${isRight}.png`;
         answerPopup.style.left = '0';
-
     }
 
-
     if (target.classList.contains('answer__next')) {
-
         // Finish the game if the question is the last in the category
         if (questionNumber % 10 == 9) {
             answerPopup.style.left = '-6000px';
@@ -320,7 +307,6 @@ document.querySelector('body').addEventListener('click', function (event) {
     })
 });
 
-
 let allCategoriesArt = document.getElementById('artCtgrs');
 let allCategoriesPic = document.getElementById('picCtgrs');
 let currentCategory;
@@ -330,14 +316,11 @@ let currentCategory;
 allCategoriesArt.addEventListener('click', getCategory);
 allCategoriesPic.addEventListener('click', getCategory);
 
-
 function getCategory(event) {
     // Get clicked element
     let target = (event.target);
     // Get its attribute (category name)
     currentCategory = target.parentElement.getAttribute('data-cat');
-
-
     startQuiz(currentCategory);
     displayQuestionAndAnswers(questionNumber);
 }
@@ -345,7 +328,6 @@ function getCategory(event) {
 var results = document.getElementsByClassName("category__results");
 
 Array.from(results).forEach(function (element) {
-
     let category = element.parentElement.getAttribute('data-cat');
 
     element.addEventListener('click', function myFunction(event) {
@@ -451,7 +433,6 @@ Array.from(results).forEach(function (element) {
         </div>
         </div>`
 
-
         var scoreImages = document.getElementsByClassName("score__image");
 
         // Color guessed pictures
@@ -465,7 +446,6 @@ Array.from(results).forEach(function (element) {
             }
         })
 
-
         document.getElementById('scoreBack').addEventListener('click', () => {
             scoreScr.classList.add('hide');
             if (currentCategory.includes('Art')) {
@@ -473,9 +453,7 @@ Array.from(results).forEach(function (element) {
             } else {
                 picturesScr.classList.remove('hide');
             }
-
         })
-
     })
 });
 
@@ -509,7 +487,6 @@ document.getElementById('mute').addEventListener('click', () => {
 
 let volume = document.getElementById("myinput");
 volume.value = localStorage.getItem('volume');
-
 
 function setVolume() {
     audioWrong.volume = volume.value;
@@ -560,11 +537,10 @@ if (localStorage.getItem('isTimeGame') == 'false') {
 } else {
     document.getElementById('timeSwitcher').checked = true;
     isTimeGame = true;
-    
+
 }
 
 document.getElementById('timeSwitcher').addEventListener('click', () => {
-
     if (isTimeGame) {
         isTimeGame = false;
         document.getElementById('headerTime').style.opacity = 0;
@@ -573,8 +549,6 @@ document.getElementById('timeSwitcher').addEventListener('click', () => {
         isTimeGame = true;
         localStorage.setItem('isTimeGame', isTimeGame)
     }
-
-    console.log(isTimeGame)
 })
 
 // SETTING THE GAME TIME IN THE SETTINGS
