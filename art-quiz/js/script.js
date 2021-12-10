@@ -259,7 +259,6 @@ document.querySelector('body').addEventListener('click', function (event) {
             // Go to the next question
         } else {
             questionNumber++;
-            // console.log(questionNumber);
             answerPopup.style.left = '-6000px';
             displayQuestionAndAnswers(questionNumber);
             answers = [];
@@ -270,7 +269,6 @@ document.querySelector('body').addEventListener('click', function (event) {
         scrPopup.style.left = '0';
         document.getElementById('endScore').innerHTML = `${count}/10`;
         document.getElementById(`${currentCategory}`).innerHTML = `${count}/10`;
-        console.log(document.getElementById(`${currentCategory}`), )
         document.getElementById(`${currentCategory}`).parentElement.parentElement.classList.remove('grey');
         document.getElementById(`${currentCategory}`).parentElement.parentElement.querySelector('.category__results').classList.remove('hide')
 
@@ -466,7 +464,6 @@ let isMute = localStorage.getItem('isMute') || 'false';
 document.getElementById('mute').addEventListener('click', () => {
     if (isMute == false) {
         document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-off.png)';
-        console.log('sound off');
         isMute = true;
         audioWrong.muted == true;
         audioRight.muted == true;
@@ -475,7 +472,6 @@ document.getElementById('mute').addEventListener('click', () => {
     } else {
         isMute = false;
         document.getElementById('mute').style.backgroundImage = 'url(./assets/images/volume-on.png)';
-        console.log('sound on');
         audioWrong.muted == false;
         audioRight.muted == false;
         audioComplete.muted == false;
