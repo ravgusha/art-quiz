@@ -478,6 +478,8 @@ document.getElementById('mute').addEventListener('click', () => {
 let volume = document.getElementById("myinput");
 volume.value = localStorage.getItem('volume');
 
+volume.addEventListener ('change', setVolume);
+
 function setVolume() {
     audioWrong.volume = volume.value;
     audioRight.volume = volume.value;
