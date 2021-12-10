@@ -15,7 +15,8 @@ let picSettingsBtn = document.getElementById('picturesSettings');
 let settigsBackBtn = document.getElementById('settingsBack');
 
 
-// КНОПКИ
+// BUTTONS
+
 settingsBtn.addEventListener('click', () => {
     settingsScr.style.left = '0';
     document.getElementById('navbar').style.display = 'none';
@@ -61,12 +62,11 @@ homeBtn1.addEventListener('click', () => {
 })
 
 
-// ГЕНЕРАЦИЯ ВОПРОСОВ
+// QUESTION GENERATION
+
 let allQuestions;
 let isRight = 'wrong';
 let count = 0;
-
-
 
 async function getImages() {
     let images = './js/images.json';
@@ -79,15 +79,13 @@ async function getImages() {
     const picturesQuestions = [];
 
     artistQuestions.push(allQuestions.pictures.slice(0, 120));
-    picturesQuestions.push(allQuestions.pictures.slice(120, 240)); // Разбираем массив
-
+    picturesQuestions.push(allQuestions.pictures.slice(120, 240)); // Parsing the array
 }
 
 getImages();
 
-
 let questTemp = document.getElementById('questionMain');
-let questionNumber; // Номер вопроса
+let questionNumber; // Question number
 let answers = [];
 
 let prevScreen;
@@ -97,9 +95,7 @@ const categoriesArray = ['portArt', 'landArt', 'stillArt', 'graphArt', 'antArt',
 ];
 
 function startQuiz(category) {
-
-
-    // Определяем номер первого вопроса в каждой категории
+    // Find the number of the first question in each category
     let index = categoriesArray.indexOf(category);
 
     questionNumber = index !== -1 ? index * 10 : 0;
@@ -107,19 +103,17 @@ function startQuiz(category) {
 
 function displayQuestionAndAnswers(questionNumber) {
 
-    // Получаем правильный ответ
+    // Get the right answer
     rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
     rightAnswerName = allQuestions.pictures[questionNumber].name;
     rightAnswerYear = allQuestions.pictures[questionNumber].year;
-    // rightAnswerPicture = `<img class="question__image" id="questImg" src="./assets/images/pictures/${questionNumber}.jpg" alt=""></img>`
 
-
-    // Перемешиваем варианты ответов, чтобы правильный не всегда был первым
+    // Shuffle the answers so that the right one is not always first
     function shuffle(array) {
         array.sort(() => Math.random() - 0.5);
     }
 
-    // Отображаем вопрос
+    // Display question
     if (currentCategory.includes('Art')) {
         prevScreen = artistsScr;
         artistsScr.classList.add('hide');
@@ -135,7 +129,7 @@ function displayQuestionAndAnswers(questionNumber) {
 
         answers.push(rightAnswerAuthor);
 
-        // Генерируем 3 неправильных ответа
+        // Generate 3 wrong answers
         for (let i = 0; i < 3; i++) {
             let random = Math.floor(Math.random() * 240);
             let answer = allQuestions.pictures[random].author;
@@ -171,7 +165,7 @@ function displayQuestionAndAnswers(questionNumber) {
 
         answers.push(questionNumber);
 
-        // Генерируем 3 неправильных ответа
+        // Generate 3 wrong answers
         for (let i = 0; i < 3; i++) {
             let random = Math.floor(Math.random() * 240);
             if (random === questionNumber) {
@@ -190,7 +184,7 @@ function displayQuestionAndAnswers(questionNumber) {
         <img class="question__picture" id="questPic" data-num=${answers[3]} src="./assets/images/pictures/${answers[3]}.jpg" alt="">
         </div>`;
     }
-    //  Готовим попап с правильным ответом
+    //  Prepare popup with right answer
     answerPopupCont.innerHTML = `<img class="answer__image" id="ansImg" src="./assets/images/pictures/${questionNumber}.jpg" alt="">
     <img class="answer__icon" id="answerIcon"src="./assets/images/${isRight}.png">
     <p class="answer__name">${rightAnswerName}</p>
@@ -212,12 +206,13 @@ let audioRight = document.getElementById('audioRight');
 let audioWrong = document.getElementById('audioWrong');
 let audioComplete = document.getElementById('audioComplete');
 
-// ПОЛУЧАЕМ ВЫБРАННЫЙ ПОЛЬЗОВАТЕЛЕМ ВАРИАНТ ОТВЕТА И ПЕРЕХОДИМ К СЛЕД.ВОПРОСУ
+// GET THE USER'S SELECTED ANSWER AND GO TO THE NEXT QUESTION
+
 document.querySelector('body').addEventListener('click', function (event) {
 
     let target = event.target;
 
-    // Получаем текст ответа
+    // Get answer text
     if (target.parentElement.classList.contains('allAnswers')) {
         let chosenAnswer = target.textContent;
         if (chosenAnswer === rightAnswerAuthor) {
@@ -267,14 +262,14 @@ document.querySelector('body').addEventListener('click', function (event) {
 
     if (target.classList.contains('answer__next')) {
 
-        // Заканчиваем, если вопрос последний в категории
+        // Finish the game if the question is the last in the category
         if (questionNumber % 10 == 9) {
             answerPopup.style.left = '-6000px';
             displayScore();
             if (isMute == 'false') {
                 audioComplete.play();
             }
-            // Переходим к следующему вопросу
+            // Go to the next question
         } else {
             questionNumber++;
             // console.log(questionNumber);
@@ -283,7 +278,7 @@ document.querySelector('body').addEventListener('click', function (event) {
             answers = [];
         }
     }
-    // Отображаем результат на категории 
+    // Display the result on the category card 
     function displayScore() {
         scrPopup.style.left = '0';
         document.getElementById('endScore').innerHTML = `${count}/10`;
@@ -294,7 +289,7 @@ document.querySelector('body').addEventListener('click', function (event) {
 
     }
 
-    // Переход с экрана результатов на главный экран
+    // Go from the results screen to the main screen
     document.getElementById('scoreHomeBtn').addEventListener('click', () => {
         questScr.classList.add('hide');
         startScr.classList.remove('hide');
@@ -302,7 +297,7 @@ document.querySelector('body').addEventListener('click', function (event) {
         count = 0;
     })
 
-    // Переход с экрана результатов на экран выбора категории
+    // Go from the results screen to the category selection screen
     document.getElementById('nextQuizBtn').addEventListener('click', () => {
         if (currentCategory.includes('Pic')) {
             picturesScr.classList.remove('hide');
@@ -330,16 +325,16 @@ let allCategoriesArt = document.getElementById('artCtgrs');
 let allCategoriesPic = document.getElementById('picCtgrs');
 let currentCategory;
 
-// ПОЛУЧАЕМ НАЗВАНИЕ КАТЕГОРИЙ
+// GET CATEGORY NAMES
 
 allCategoriesArt.addEventListener('click', getCategory);
 allCategoriesPic.addEventListener('click', getCategory);
 
 
 function getCategory(event) {
-    // Получаем элемент, по которому произошел клик
+    // Get clicked element
     let target = (event.target);
-    // Получаем его атрибут(название категории)
+    // Get its attribute (category name)
     currentCategory = target.parentElement.getAttribute('data-cat');
 
 
@@ -459,7 +454,7 @@ Array.from(results).forEach(function (element) {
 
         var scoreImages = document.getElementsByClassName("score__image");
 
-        // Отделяем цветом угаданные картины
+        // Color guessed pictures
         let max = questionNumber + 9;
 
         Array.from(scoreImages).forEach(function (element) {
@@ -486,7 +481,7 @@ Array.from(results).forEach(function (element) {
 
 
 
-// ОТКЛЮЧЕНИЕ ЗВУКА
+// MUTE
 
 let isMute = localStorage.getItem('isMute') || 'false';
 
@@ -510,7 +505,8 @@ document.getElementById('mute').addEventListener('click', () => {
     }
 })
 
-// УМЕНЬШЕНИЕ ГРОМКОСТИ
+//  MOVE THE VOLUME
+
 let volume = document.getElementById("myinput");
 volume.value = localStorage.getItem('volume');
 
@@ -522,7 +518,8 @@ function setVolume() {
     localStorage.setItem('volume', volume.value);
 }
 
-// ТАЙМЕР
+// TIMER
+
 let currentSeconds = document.getElementById('timeCount');
 currentSeconds.value = localStorage.getItem('currentSeconds') || 15;
 
@@ -566,13 +563,6 @@ if (localStorage.getItem('isTimeGame') == 'false') {
     
 }
 
-
-
-// if (isTimeGame == false) {
-//     document.getElementById('timeSwitcher').checked = false;
-// } 
-
-
 document.getElementById('timeSwitcher').addEventListener('click', () => {
 
     if (isTimeGame) {
@@ -587,7 +577,7 @@ document.getElementById('timeSwitcher').addEventListener('click', () => {
     console.log(isTimeGame)
 })
 
-// РЕГУЛИРОВАНИЕ ВРЕМЕНИ ИГРЫ В НАСТРОЙКАХ
+// SETTING THE GAME TIME IN THE SETTINGS
 
 document.getElementById('minus').addEventListener('click', event => {
     event.preventDefault();
@@ -605,7 +595,7 @@ document.getElementById('plus').addEventListener('click', event => {
     localStorage.setItem('currentSeconds', currentSeconds.value);
 });
 
-// ПРОГРЕСС-БАР ТАЙМЕРА
+// TIMER PROGRESS BAR
 
 function createProgressbar(id, duration) {
     var progressbar = document.getElementById(id);
@@ -618,7 +608,7 @@ function createProgressbar(id, duration) {
     progressbarinner.style.animationPlayState = 'running';
 }
 
-// ВОЗВРАЩЕНИЕ НАЗАД В ПРОЦЕССЕ ИГРЫ
+// GOING BACK DURING THE GAME
 
 document.getElementById('exit').addEventListener('click', () => {
     prevScreen.classList.remove('hide');
