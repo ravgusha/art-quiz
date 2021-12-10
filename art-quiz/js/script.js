@@ -1,6 +1,5 @@
 import { shuffle } from './utils.js';
 
-console.log(shuffle)
 let startScr = document.getElementById('startScreen');
 let settingsScr = document.getElementById('settingsScreen');
 let artistsScr = document.getElementById('artistsScreen');
@@ -69,26 +68,18 @@ let allQuestions;
 let isRight = false;
 let count = 0;
 
-let categoryQuanityOfQuestions = 120;
-
 async function getImages() {
-    let images = './js/images.json';
-    const res = await fetch(images);
+    const IMAGES_PATH = './js/images.json';
+    const res = await fetch(IMAGES_PATH);
     const data = await res.json();
 
     allQuestions = JSON.parse(JSON.stringify(data));
-
-    const artistQuestions = [];
-    const picturesQuestions = [];
-
-    artistQuestions.push(allQuestions.pictures.slice(0, categoryQuanityOfQuestions));
-    picturesQuestions.push(allQuestions.pictures.slice(categoryQuanityOfQuestions, allQuestions.length)); // Parsing the array
 }
 
 getImages();
 
 let questTemp = document.getElementById('questionMain');
-let questionNumber; // Question number
+let questionNumber; 
 let answers = [];
 let prevScreen;
 
@@ -108,9 +99,6 @@ function displayQuestionAndAnswers(questionNumber) {
     rightAnswerAuthor = allQuestions.pictures[questionNumber].author;
     rightAnswerName = allQuestions.pictures[questionNumber].name;
     rightAnswerYear = allQuestions.pictures[questionNumber].year;
-
- 
-   
 
     // Display question
     if (currentCategory.includes('Art')) {
