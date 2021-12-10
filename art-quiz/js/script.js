@@ -1,3 +1,6 @@
+import { shuffle } from './utils.js';
+
+console.log(shuffle)
 let startScr = document.getElementById('startScreen');
 let settingsScr = document.getElementById('settingsScreen');
 let artistsScr = document.getElementById('artistsScreen');
@@ -106,10 +109,8 @@ function displayQuestionAndAnswers(questionNumber) {
     rightAnswerName = allQuestions.pictures[questionNumber].name;
     rightAnswerYear = allQuestions.pictures[questionNumber].year;
 
-    // Shuffle the answers so that the right one is not always first
-    function shuffle(array) {
-        array.sort(() => Math.random() - 0.5);
-    }
+ 
+   
 
     // Display question
     if (currentCategory.includes('Art')) {
@@ -136,6 +137,7 @@ function displayQuestionAndAnswers(questionNumber) {
                 answer = allQuestions.pictures[random].author;
             }
             answers.push(answer);
+            // Shuffle the answers so that the right one is not always first
             shuffle(answers);
         }
 
